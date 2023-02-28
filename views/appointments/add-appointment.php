@@ -12,11 +12,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="dateHour">Heure de rendez-vous:</label>
-                                <input type="text" class="form-control"  id="dateHour" name="dateHour" placeholder="8:00" <?=REGEXP_DATE_HOUR?> required/>
+                                <input type="time" class="form-control"  id="dateHour" name="dateHour" <?=REGEXP_DATE_HOUR?> required/>
                             </div>
                             <div>
                                 <label for="idPatients">Patient:</label>
-                                <input type="text" class="form-control" id="idPatients" name="idPatients" pattern="<?=REGEXP_LASTNAME?>" required>
+                                <select class="form-control mb-4" name="idPatients" id="idPatients">
+                                    <option selected disabled>Veuillez sélectionner un patient</option>
+                                        <?php foreach ($patients as $patient) { ?>
+                                            <option value="<?= $patient->id ?>"><?= $patient->lastname ?> <?= $patient->firstname ?> <?= $patient->birthdate ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                </select>
                             </div>
                             <div class="col text-center mt-2">
                                 <button type="submit" class="btn btn-primary text-light ">Ajouter</button>

@@ -5,11 +5,10 @@
             <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th>Nom de Famille</th>
+                        <th>Date et heure</th>
+                        <th>Nom de famille</th>
                         <th>Prénom</th>
                         <th>Date de naissance</th>
-                        <th>Téléphone</th>
-                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,8 +16,10 @@
                     foreach ($appointments as $appointment) {
                     ?>
                         <tr>
-                            <td><?= htmlentities($appointment->id) ?></td>
-                            <td><?= htmlentities(date('d.m.Y', strtotime($appointment->dateHour))) ?></td>
+                            <td><?= $appointment->dateHour ?></td>
+                            <td><?= $appointment->lastname ?></td>
+                            <td><?= $appointment->firstname ?></td>
+                            <td><?= $appointment->birthdate ?></td>
                             <td>
                                 <a href="/controllers/edit-patientCtrl.php?id=<?= htmlentities($patient->id) ?>"><i class="far fa-edit"></i></a>
                             </td>
@@ -28,7 +29,7 @@
             </table>
         </div>
         <div class="col">
-            <a href="../controllers/add-patientCtrl.php"><button type="button" class="btn btn-primary">Ajouter un patient</button></a>
+            <a href="../controllers/add-patientCtrl.php"><button type="button" class="btn btn-primary">Ajouter un rendez-vous</button></a>
         </div>
     </div>
 </div>
