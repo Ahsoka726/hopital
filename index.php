@@ -1,4 +1,4 @@
 <?php 
 
-header('Location: /controllers/add-patientCtrl.php');
+header('Location: /homeCtrl.php');
 die;
