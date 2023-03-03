@@ -10,6 +10,8 @@
                         <th>Date de naissance</th>
                         <th>Téléphone</th>
                         <th>Email</th>
+                        <th>Détails</th>
+                        <th>Modification</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,9 +24,9 @@
                             <td><?= htmlentities(date('d.m.Y', strtotime($patient->birthdate))) ?></td>
                             <td><?= htmlentities($patient->phone) ?></td>
                             <td><a href="mailto:<?= htmlentities($patient->mail) ?>"><?= htmlentities($patient->mail) ?></a></td>
-                            <td>
-                                <a href="/controllers/edit-patientCtrl.php?id=<?= htmlentities($patient->id) ?>"><i class="far fa-edit"></i></a>
-                            </td>
+                            <td><a href="../../controllers/profil-patientsCtrl.php?idPatient=<?=$patient->id ?>"><button type="button" class="btn btn-primary btn-sm">Profil Patient</button></a></td>
+                            <td><a href="/controllers/edit-patientCtrl.php?idPatient=<?= htmlentities($patient->id) ?>"><i class="far fa-edit"></i></a></td>
+                            
                         </tr>
                     <?php } ?>
                 </tbody>

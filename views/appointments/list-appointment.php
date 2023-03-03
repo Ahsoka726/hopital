@@ -9,6 +9,7 @@
                         <th>Nom de famille</th>
                         <th>Prénom</th>
                         <th>Détails</th>
+                        <th>Modification</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,7 +20,9 @@
                             <td><?= htmlentities(date('d.m.Y à H:i', strtotime($appointment->dateHour))) ?></td>
                             <td><?= htmlentities($appointment->lastname) ?></td>
                             <td><?= htmlentities($appointment->firstname) ?></td>
-                            <td><a href="../../controllers/profil-patientsCtrl.php?idRdv=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Profil Patient</button></a></td>
+                            <td><a href="../../controllers/appointmentCtrl.php?idAppointment=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Détails rendez-vous</button></a></td>
+                            <td><a href="../../controllers/upDateRdvCtrl.php?idAppointment=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Modifier</button></a></td>
+
                         </tr>
                     <?php } ?>
                 </tbody>

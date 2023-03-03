@@ -57,20 +57,14 @@ class Appointment
      * 
      * @return boolean
      */
-    public function insert(): bool
-    {
+    public function insert() {
         $sql = 'INSERT INTO `appointments` (`dateHour`, `idPatients`) 
-                    VALUES (:dateHour, :idPatients);';
+                VALUES (:dateHour, :idPatients)';
         $sth = $this->pdo->prepare($sql);
-
-        $sth->bindValue(':dateHour', $this->getDateHour(), PDO::PARAM_STR);
-        $sth->bindValue(':idPatients', $this->getIdPatients(), PDO::PARAM_INT);
-
-        if ($sth->execute()) {
-            return ($sth->rowCount() > 0) ? true : false;
-        }
+        $sth->bindValue(':dateHour', $this->dateHour, PDO::PARAM_STR);
+        $sth->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        return $sth->execute();
     }
-    
     /**************************************************************************************************************/
     /**************************************************************************************************************/
 
@@ -109,7 +103,7 @@ class Appointment
     /**************************************************************************************************************/
     /**************************************************************************************************************/
 
-    // Méthode qui permet de récupérer les rendez-vous de chaque patient
+    // A vérifier plus tard 
 
     public function getPatientAppointments() {
         $sql = 'SELECT DATE_FORMAT(`dateHour`, \'%d/%m/%Y\') AS `date`, `dateHour`,
@@ -128,18 +122,45 @@ class Appointment
     /**************************************************************************************************************/
     /**************************************************************************************************************/
 
-    public static function get($idAppointment): object | bool
-    {
-        $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`id`, `patients`.`lastname`, `patients`.`firstname`, `patients`.`phone`, `patients`.`mail`, `patients`.`birthdate`  
-        FROM `appointments` 
-        JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id` 
-        WHERE `appointments`.`id`=:idAppointment;';
-        $sth = Database::getInstance()->prepare($sql);
+    //Méthode pour afficher les rendez-vous d'un même patient en dessous de son profil.
+    public static function getAppointments($idPatients = null)
+    {   
+        if (!$idPatients) {
+            $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
+            FROM `appointments` 
+            JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id`' ;
+            
+        }else {
+            $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
+            FROM `appointments` 
+            JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id` 
+            WHERE `appointments`.`id`= :idPatients;';
 
-        if ($sth->execute()) {
-            return ($sth->fetchAll());
         }
+
+        // $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
+        // FROM `appointments` 
+        // JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id` 
+        // WHERE `appointments`.`id`= :idPatients;';
+        // on prépare la requête
+        $sth = Database::getInstance()->prepare($sql);
+        // On affecte les valeurs au marqueur nominatif :
+        if ($idPatients) {
+            $sth->bindValue(':idPatients', $idPatients, PDO::PARAM_INT);
+        }
+        // on exécute la requête
+        $sth->execute();
+        // On stocke le résultat dans un objet puisque paramétrage effectué:
+        $results = $sth->fetch();
+        // que l'on retourne en sortie de méthode
+        return $results;
     }
-    
+        
+
+    public static function updateRdv(){
+        
+
+
+    }
     /**************************************************************************************************************/
 }

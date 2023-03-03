@@ -253,18 +253,18 @@ class Patient
             return ($sth->rowCount() > 0) ? true : false;
         }
     }
-
-    public static function itemizePatient() {
+    // Méthode pour afficher les informations de chaque patient
+    public static function getPatient($idPatient) {
         $sql = 'SELECT `id` , `lastname` , `firstname` , 
                     DATE_FORMAT(`birthdate`,\'%d.%m.%Y\'), `birthdate`, `phone` , `mail` 
                     FROM `patients`
-                    WHERE `id`;';
+                    WHERE `id` = :idPatient ;';
         //Dès qu'un marqueur nominatif est présent: on utilise un prepare et non un query
         $sth = Database::getInstance()->prepare($sql);
-
-        if ($sth->execute());
-        //Attention, ici il n'y a qu'un fetch car on ne sort qu'une donnée, c'est plus rapide.
-        return ($sth->fetch(PDO::FETCH_OBJ));
+        $sth->bindValue(':idPatient', $idPatient);
+        $sth->execute();
+        $results = $sth->fetch(PDO::FETCH_OBJ);
+        return $results;
     }
 
 }
