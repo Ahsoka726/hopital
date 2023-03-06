@@ -6,7 +6,7 @@
                     <h5 class="card-title text-center">Détails des Rendez-vous</h5>
                     <p>Nom de Famille: <?= $appointment->lastname ?></p>
                     <p>Prénom: <?= $appointment->firstname ?></p>
-                    <p>Rendez-vous : <?= $appointment->dateHour ?></p>
+                    <p>Rendez-vous : <?= date('d.m.Y à H:i', strtotime($appointment->dateHour)) ?></p>
                 </div>
             </div>
         </div>

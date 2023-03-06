@@ -123,36 +123,16 @@ class Appointment
     /**************************************************************************************************************/
 
     //Méthode pour afficher les rendez-vous d'un même patient en dessous de son profil.
-    public static function getAppointments($idPatients = null)
+    public static function getAppointment($idAppointment): object|bool
     {   
-        if (!$idPatients) {
-            $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
-            FROM `appointments` 
-            JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id`' ;
-            
-        }else {
-            $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
+        $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
             FROM `appointments` 
             JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id` 
-            WHERE `appointments`.`id`= :idPatients;';
-
-        }
-
-        // $sql = 'SELECT `appointments`.`id` AS `idAppointment`, `appointments`.`idPatients`,`appointments`.`dateHour`, `patients`.`lastname`, `patients`.`firstname` 
-        // FROM `appointments` 
-        // JOIN `patients` ON `appointments`.`idPatients`=`patients`.`id` 
-        // WHERE `appointments`.`id`= :idPatients;';
-        // on prépare la requête
+            WHERE `appointments`.`id`= :idAppointment;';
         $sth = Database::getInstance()->prepare($sql);
-        // On affecte les valeurs au marqueur nominatif :
-        if ($idPatients) {
-            $sth->bindValue(':idPatients', $idPatients, PDO::PARAM_INT);
-        }
-        // on exécute la requête
+        $sth->bindValue(':idAppointment', $idAppointment, PDO::PARAM_INT);
         $sth->execute();
-        // On stocke le résultat dans un objet puisque paramétrage effectué:
-        $results = $sth->fetch();
-        // que l'on retourne en sortie de méthode
+        $results = $sth->fetch(PDO::FETCH_OBJ);
         return $results;
     }
         
