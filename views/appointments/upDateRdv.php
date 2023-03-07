@@ -20,7 +20,7 @@
                             <div>
                                 <label for="idPatients">Patient:</label>
                                 <select class="form-control mb-4" name="idPatients" id="idPatients">
-                                    <option selected disabled>Veuillez sélectionner un patient</option>
+                                    <option>Veuillez sélectionner un patient</option>
                                         <?php foreach ($patients as $patient) { ?>
                                             $isSelected = ($patient->id == $rdv->patientId) ? 'selected' : '';
                                             <option value="<?= $patient->id ?>"$isSelected><?= $patient->lastname ?> <?= $patient->firstname ?></option>

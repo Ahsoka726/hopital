@@ -7,7 +7,7 @@ try {
         /********************************* NETTOYAGE ******************************************************/
         $idAppointment = abs(intval(filter_input(INPUT_GET, 'idAppointment', FILTER_SANITIZE_NUMBER_INT)));
         /**************************************************************************************************/
-        $appointments = Appointment::get($idAppointment);
+        $appointments = Appointment::updateRdv($idAppointment);
         if (!$appointments) {
             throw new Exception ('Le rendez-vous n\'existe pas');
         }

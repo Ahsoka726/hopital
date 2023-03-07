@@ -254,7 +254,8 @@ class Patient
         }
     }
     // Méthode pour afficher les informations de chaque patient
-    public static function getPatient($idPatient) {
+    public static function getPatient($idPatient) 
+    {
         $sql = 'SELECT `id` , `lastname` , `firstname` , 
                     DATE_FORMAT(`birthdate`,\'%d.%m.%Y\'), `birthdate`, `phone` , `mail` 
                     FROM `patients`
@@ -265,6 +266,21 @@ class Patient
         $sth->execute();
         $results = $sth->fetch(PDO::FETCH_OBJ);
         return $results;
+    }
+
+    //Méthode de suppression de Patient avec ses rendez-vous
+    public static function delete($id)
+    {
+        $sql = 'DELETE FROM `patients` 
+                WHERE `patients`.`id` = :id ;';
+        $pdo = Database::getInstance();
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':id', $id, PDO::PARAM_INT);
+        
+        $results = $sth->execute();
+        if ($results) {
+            return ($sth->rowCount() > 0) ? true : false;
+        }
     }
 
 }

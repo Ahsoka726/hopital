@@ -1,8 +1,8 @@
 <div class="container-fluid">
-    <div class="row justify-content-center mx-auto">
+    <div class="row">
         <h5 class="card-title text-center">Liste des rendez-vous</h5>
-        <div class="col-sm-10">
-            <table class="table table-dark table-hover table-responsive ">
+        <div class="col-sm-12">
+            <table class="table table-responsive">
                 <thead>
                     <tr>
                         <th>Date et heure</th>
@@ -10,6 +10,7 @@
                         <th>Prénom</th>
                         <th>Détails</th>
                         <th>Modification</th>
+                        <th>Suppression</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,7 +23,7 @@
                             <td><?= htmlentities($appointment->firstname) ?></td>
                             <td><a href="../../controllers/appointmentCtrl.php?idAppointment=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Détails rendez-vous</button></a></td>
                             <td><a href="../../controllers/upDateRdvCtrl.php?idAppointment=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Modifier</button></a></td>
-
+                            <td><a href="../../controllers/deleteRdvCtrl.php?idAppointment=<?=$appointment->idAppointment ?>"><button type="button" class="btn btn-primary btn-sm">Supprimer</button></a></td>
                         </tr>
                     <?php } ?>
                 </tbody>

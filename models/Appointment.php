@@ -136,11 +136,38 @@ class Appointment
         return $results;
     }
         
+    //Modification d'un rendez-vous
+    public function updateRdv($idAppointment): object | bool
+    {
+        $sql = 'UPDATE `appointments` 
+                SET `dateHour`=:dateHour, `idPatients`=:idPatients 
+                WHERE `appointments`.`id`= :idAppointment;';
 
-    public static function updateRdv(){
+        $sth = $this->pdo->prepare($sql);
+        $sth->bindValue(':dateHour', $this->dateHour, PDO::PARAM_STR);
+        $sth->bindValue(':idPatients', $this->idPatients, PDO::PARAM_INT);
+        $sth->bindValue(':idAppointment', $idAppointment, PDO::PARAM_INT);
+        $sth->execute();
+        $results = $sth->rowCount();
+        return ($results > 0) ? true : false;
+    }
+
+    //Méthode de suppression d'un rendez-vous.
+    public static function deleteAppointment($idAppointment)
+    {
+        $sql = 'DELETE FROM `appointments`
+                WHERE `appointments`.`id` = :idAppointment ;';
+
+        $pdo = Database::getInstance();
+        $sth = $pdo->prepare($sql);
+        $sth->bindValue(':idAppointment', $idAppointment, PDO::PARAM_INT);
+       
+        $results =  $sth->execute();
+        if ($results) {
+            return ($sth->rowCount() > 0) ? true : false;
+        }
         
-
-
+        
     }
     /**************************************************************************************************************/
 }

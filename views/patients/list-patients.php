@@ -12,6 +12,7 @@
                         <th>Email</th>
                         <th>Détails</th>
                         <th>Modification</th>
+                        <th>Suppression</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,8 +26,8 @@
                             <td><?= htmlentities($patient->phone) ?></td>
                             <td><a href="mailto:<?= htmlentities($patient->mail) ?>"><?= htmlentities($patient->mail) ?></a></td>
                             <td><a href="../../controllers/profil-patientsCtrl.php?idPatient=<?=$patient->id ?>"><button type="button" class="btn btn-primary btn-sm">Profil Patient</button></a></td>
-                            <td><a href="/controllers/edit-patientCtrl.php?idPatient=<?= htmlentities($patient->id) ?>"><i class="far fa-edit"></i></a></td>
-                            
+                            <td><a href="../../controllers/profil-patientsCtrl.php?idPatient=<?=$patient->id ?>"><button type="button" class="btn btn-primary btn-sm">Modifier</button></a></td>
+                            <td><a href="../../controllers/deletePatientCtrl.php?idPatient=<?=$patient->id ?>"><button type="button" class="btn btn-primary btn-sm">Supprimer</button></a></td>
                         </tr>
                     <?php } ?>
                 </tbody>

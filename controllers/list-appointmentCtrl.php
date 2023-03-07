@@ -8,6 +8,7 @@ try {
 
     // Appel à la méthode statique permettant de récupérer les patients
     $appointments = Appointment::getListrdv();
+    
 
 
 } catch (\Throwable $th) {
